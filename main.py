@@ -1,7 +1,7 @@
 import csv
 
 file = open('input.txt', "r", encoding="utf-8")
-encoding = file.readline().rstrip()
+encoding = file.readline().rstrip().replace("\ufeff", "")
 string = file.readline()
 
 table = [[''] * 4 for i in range(len(string) + 1)]
