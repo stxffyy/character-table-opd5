@@ -16,3 +16,14 @@
 КОИ-8 он не принимает, нужно koi8-r. Остальные кодировки (Windows-1251, ISO-8859-5) вроде работают как в генираторе
 
 ##Советую проверить результаты тут https://dencode.com/string
+
+##Кoстыли
+можете пробовать убирать по одному или оба if, у кого-то может работать адекватно.
+```py
+    if ord(char) < 128:
+        table[count][1] = hex(ord(char))[2::].upper()
+        table[count][2] = hex(ord(char))[2::].upper()
+        table[count][3] = "00 " + hex(ord(char))[2::].upper()
+    if len(table[count][3].split()[0]) != 2:
+        table[count][3] = table[count][3][:2] + " " + hex(ord(table[count][3][2]))[2::].upper()
+```
