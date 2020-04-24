@@ -2,7 +2,7 @@ import csv
 
 file = open('input.txt', "r", encoding="utf-8")
 encoding = file.readline().rstrip().replace("\ufeff", "")
-string = file.readline()
+string = file.readline().rstrip()
 
 table = [[''] * 4 for i in range(len(string) + 1)]
 table[0][0] = "Символ"
