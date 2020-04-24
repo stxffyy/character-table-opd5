@@ -1,11 +1,9 @@
 import csv
 
 file = open('input2.txt', "r", encoding="utf-8")
-encod1 = file.readline().rstrip().replace("\ufeff", "")
-encod2 = file.readline().rstrip()
-encod3 = file.readline().rstrip()
+encods = [file.readline().rstrip().replace("\ufeff", ""), file.readline().rstrip(), file.readline().rstrip()]
 
-s0, s1, s2, s3 = "", "", "", ""
+s = ["", "", "", ""]
 with open("table.csv", "r", newline="") as csv_file:
     reader = csv.reader(csv_file, delimiter=";")
     count = 0
@@ -13,56 +11,31 @@ with open("table.csv", "r", newline="") as csv_file:
         count += 1
         if count == 1:
             continue
-        s0 += row[0] + " "
-        s1 += row[1] + " "
-        s2 += row[2] + " "
-        s3 += row[3] + " "
+        s[0] += row[0] + " "
+        s[1] += row[1] + " "
+        s[2] += row[2] + " "
+        s[3] += row[3] + " "
         count += 1
 
-if s1.find(encod1) != -1:
-    print("первый столбик верный")
-else:
-    print("в первом столбике что-то не так, сравните (первая строка из input2.txt, вторая из таблицы)")
-    correct_array = encod1.split()
-    wrong_array = s1.split()
-    for i in range(min(len(correct_array), len(wrong_array))):
-        if correct_array[i] == wrong_array[i]:
-            print("   ", end='')
-        else:
-            print("!! ", end='')
-    print()
-    print(encod1)
-    print(s1)
-print()
 
-if s2.find(encod2) != -1:
-    print("второй столбик верный")
-else:
-    print("во втором столбике что-то не так, сравните (первая строка из input2.txt, вторая из таблицы)")
-    correct_array = encod2.split()
-    wrong_array = s2.split()
-    for i in range(min(len(correct_array), len(wrong_array))):
-        if correct_array[i] == wrong_array[i]:
-            print("   ", end='')
-        else:
-            print("!! ", end='')
+def check(num):
+    if s[num].find(encods[num-1]) != -1:
+        print("столбик №%d верный" % num)
+    else:
+        print("в столбике №%d что-то не так, сравните (первая строка из input2.txt, вторая из таблицы)" % num)
+        correct_array = encods[num-1].split()
+        wrong_array = s[num].split()
+        for i in range(min(len(correct_array), len(wrong_array))):
+            if correct_array[i] == wrong_array[i]:
+                print("   ", end='')
+            else:
+                print("!! ", end='')
+        print()
+        print(encods[num-1])
+        print(s[num])
     print()
-    print(encod2)
-    print(s2)
-print()
 
-if s3.find(encod3) != -1:
-    print("третий столбик верный")
-else:
-    print("в третьем столбике что-то не так, сравните (первая строка из input2.txt, вторая из таблицы)")
-    correct_array = encod3.split()
-    wrong_array = s3.split()
-    for i in range(min(len(correct_array), len(wrong_array))):
-        if correct_array[i] == wrong_array[i]:
-            print("   ", end='')
-        else:
-            print("!! ", end='')
-    print()
-    print(encod3)
-    print(s3)
 
+check(1)
+check(2)
+check(3)
